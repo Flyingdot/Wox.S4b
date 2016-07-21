@@ -1,0 +1,12 @@
+{
+  "ID":"EE27ECBB6D67497E99A8043C1A53FBC2",   //Plugin ID，32 bit UUID
+  "ActionKeyword":"s4b",                     //Plugin default action keyword
+  "Name":"Skype for Business",                              //Plugin name
+  "Description":"Launcher for Skype for Business Calls or IM's",    //Plugin description
+  "Author":"@danimeier",                     //Plugin Author
+  "Version":"1.0.0",                         //Plugin version，must be x.x.x format
+  "Language":"csharp",                       //Plugin language，we support csharp,python and executable now
+  "Website":"",         //Plugin website or author website
+  "IcoPath": "Images\\pic.png",              //Plugin icon, relative path to the pluign folder
+  "ExecuteFileName":"Flyingdot.Wox.Plugin.S4b"   //Execution entry. Dll name for c# plugin, and python file for python plugin
+}
