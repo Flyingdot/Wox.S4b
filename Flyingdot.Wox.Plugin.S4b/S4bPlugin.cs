@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Flyingdot.Wox.Plugin.S4b.Extensions;
 using Flyingdot.Wox.Plugin.S4b.Services;
 using Microsoft.Lync.Model;
 using Wox.Plugin;
@@ -22,7 +23,7 @@ namespace Flyingdot.Wox.Plugin.S4b
                 {
                     list.AddRange(searchResults.Select(c => new Result
                     {
-                        Title = $"{c.GetContactInformation(ContactInformationType.FirstName)} {c.GetContactInformation(ContactInformationType.LastName)}",
+                        Title = $"{c.SafeGetContactInformation(ContactInformationType.FirstName)} {c.SafeGetContactInformation(ContactInformationType.LastName)}",
                         SubTitle = "something",
                         Action = contact =>
                         {

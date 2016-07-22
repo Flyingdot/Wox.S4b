@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ContactExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="S4bPlugin.cs" />
     <Compile Include="Services\ContactSearch.cs" />
