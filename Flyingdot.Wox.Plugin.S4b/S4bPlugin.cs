@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.Lync.Model;
-using Microsoft.Lync.Model.Conversation;
 using Microsoft.Lync.Model.Extensibility;
 using Wox.Plugin;
 
@@ -30,7 +29,7 @@ namespace Flyingdot.Wox.Plugin.S4b
                 {
                     list.AddRange(searchResults.Select(c => new Result
                     {
-                        Title = c.Uri,
+                        Title = $"{c.GetContactInformation(ContactInformationType.FirstName)} {c.GetContactInformation(ContactInformationType.LastName)}",
                         SubTitle = "something",
                         Action = contact =>
                         {
