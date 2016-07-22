@@ -11,7 +11,7 @@ namespace Flyingdot.Wox.Plugin.S4b.Tests
             string expected = "Bill Gates";
             var sut = new QueryParser();
 
-            string actual = sut.Parse(expected)[0];
+            string actual = sut.Parse(expected).Search;
 
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -22,21 +22,9 @@ namespace Flyingdot.Wox.Plugin.S4b.Tests
             var expected = "says hello";
             var sut = new QueryParser();
 
-            string actual = sut.Parse($"Bill Gates \"{expected}\"")[1];
+            string actual = sut.Parse($"Bill Gates \"{expected}\"").Message;
 
             Assert.That(actual, Is.EqualTo(expected));
-        }
-    }
-
-    public class QueryParser
-    {
-        public string[] Parse(string query)
-        {
-            string[] result = new string[2];
-            string[] splitted = query.Split('"');
-            result[0] = splitted[0];
-            result[1] = splitted.Length > 1 ? splitted[1] : string.Empty;
-            return result;
         }
     }
 }

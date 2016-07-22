@@ -50,6 +50,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Flyingdot.Wox.Plugin.S4b\Flyingdot.Wox.Plugin.S4b.csproj">
+      <Project>{98563d8b-2481-40da-b1a6-a3ed2d2a79e5}</Project>
+      <Name>Flyingdot.Wox.Plugin.S4b</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
