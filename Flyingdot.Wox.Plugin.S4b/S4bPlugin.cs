@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Flyingdot.Wox.Plugin.S4b.Extensions;
 using Flyingdot.Wox.Plugin.S4b.Services;
@@ -16,9 +17,12 @@ namespace Flyingdot.Wox.Plugin.S4b
         {
             var list = new List<Result>();
 
+            Debug.WriteLine(query.FirstSearch ?? "");
+            Debug.WriteLine(query.SecondToEndSearch ?? "");
+
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
-                IEnumerable<Contact> searchResults = _contactSearch.Search(query.Search, 100);
+                IEnumerable<Contact> searchResults = _contactSearch.Search(query.FirstSearch, 100);
                 if (searchResults != null)
                 {
                     list.AddRange(searchResults.Select(c => new Result
@@ -27,7 +31,15 @@ namespace Flyingdot.Wox.Plugin.S4b
                         SubTitle = "something",
                         Action = contact =>
                         {
-                            _lync.StartConversation(c);
+                            if (!string.IsNullOrWhiteSpace(query.SecondToEndSearch))
+                            {
+                                _lync.SendMessage(c, query.SecondToEndSearch);
+                            }
+                            else
+                            {
+                                _lync.StartConversation(c);
+                            }
+
                             return true;
                         }
                     }).ToList());

@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		plugin.json = plugin.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flyingdot.Wox.Plugin.S4b.Tests", "Flyingdot.Wox.Plugin.S4b.Tests\Flyingdot.Wox.Plugin.S4b.Tests.csproj", "{E6CF395A-C590-4012-9762-A9A792C4579F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{98563D8B-2481-40DA-B1A6-A3ED2D2A79E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98563D8B-2481-40DA-B1A6-A3ED2D2A79E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98563D8B-2481-40DA-B1A6-A3ED2D2A79E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6CF395A-C590-4012-9762-A9A792C4579F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6CF395A-C590-4012-9762-A9A792C4579F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6CF395A-C590-4012-9762-A9A792C4579F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6CF395A-C590-4012-9762-A9A792C4579F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
