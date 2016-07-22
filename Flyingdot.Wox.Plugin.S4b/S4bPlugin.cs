@@ -2,7 +2,6 @@
 using System.Linq;
 using Flyingdot.Wox.Plugin.S4b.Services;
 using Microsoft.Lync.Model;
-using Microsoft.Lync.Model.Extensibility;
 using Wox.Plugin;
 
 namespace Flyingdot.Wox.Plugin.S4b
@@ -10,6 +9,7 @@ namespace Flyingdot.Wox.Plugin.S4b
     public class S4bPlugin : IPlugin
     {
         private readonly IContactSearch _contactSearch = new ContactSearch();
+        private readonly ILync _lync = new Lync();
 
         public List<Result> Query(Query query)
         {
@@ -26,7 +26,7 @@ namespace Flyingdot.Wox.Plugin.S4b
                         SubTitle = "something",
                         Action = contact =>
                         {
-                            StartConversation(c);
+                            _lync.StartConversation(c);
                             return true;
                         }
                     }).ToList());
@@ -34,27 +34,6 @@ namespace Flyingdot.Wox.Plugin.S4b
             }
 
             return list;
-        }
-
-        private void StartConversation(Contact contact)
-        {
-            Automation lyncAutomation = LyncClient.GetAutomation();
-
-            lyncAutomation.BeginStartConversation(
-                AutomationModalities.InstantMessage,
-                new[] { contact.Uri },
-                new Dictionary<AutomationModalitySettings, object>
-                {
-                    {AutomationModalitySettings.SendFirstInstantMessageImmediately, false}
-                },
-                ar =>
-                {
-                    if (ar.IsCompleted)
-                    {
-                        ((Automation)ar.AsyncState).EndStartConversation(ar);
-                    }
-                },
-                lyncAutomation);
         }
 
         public void Init(PluginInitContext context)

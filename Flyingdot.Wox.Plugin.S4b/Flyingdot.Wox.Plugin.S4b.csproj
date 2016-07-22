@@ -55,6 +55,8 @@
     <Compile Include="S4bPlugin.cs" />
     <Compile Include="Services\ContactSearch.cs" />
     <Compile Include="Services\IContactSearch.cs" />
+    <Compile Include="Services\ILync.cs" />
+    <Compile Include="Services\Lync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\plugin.json">
