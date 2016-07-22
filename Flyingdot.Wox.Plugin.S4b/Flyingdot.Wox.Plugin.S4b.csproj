@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="S4bPlugin.cs" />
+    <Compile Include="Services\ContactSearch.cs" />
+    <Compile Include="Services\IContactSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\plugin.json">
