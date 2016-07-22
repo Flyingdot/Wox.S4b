@@ -33,9 +33,9 @@
     <Reference Include="Microsoft.Lync.Model">
       <HintPath>..\lib\Microsoft.Lync.Model.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Uc">
+    <Reference Include="Microsoft.Office.Uc, Version=15.0.4603.1000, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <HintPath>..\lib\Microsoft.Office.Uc.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,6 +55,10 @@
     <Compile Include="S4bPlugin.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\plugin.json">
+      <Link>plugin.json</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
