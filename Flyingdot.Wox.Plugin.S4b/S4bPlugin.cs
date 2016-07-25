@@ -27,19 +27,11 @@ namespace Flyingdot.Wox.Plugin.S4b
                 {
                     list.AddRange(searchResults.Select(c => new Result
                     {
-                        Title = $"{c.SafeGetContactInformation(ContactInformationType.FirstName)} {c.SafeGetContactInformation(ContactInformationType.LastName)}",
+                        Title = SetTitle(c, parserResult),
                         SubTitle = "something",
-                        Action = contact =>
+                        Action = _ =>
                         {
-                            if (!string.IsNullOrWhiteSpace(parserResult.Message))
-                            {
-                                _lync.SendMessage(c, parserResult.Message);
-                            }
-                            else
-                            {
-                                _lync.StartConversation(c);
-                            }
-
+                            OnContactSelection(c, parserResult);
                             return true;
                         }
                     }).ToList());
@@ -47,6 +39,32 @@ namespace Flyingdot.Wox.Plugin.S4b
             }
 
             return list;
+        }
+
+        private static string SetTitle(Contact contact, QueryParserResult parserResult)
+        {
+            string title = $"{contact.SafeGetContactInformation(ContactInformationType.FirstName)} {contact.SafeGetContactInformation(ContactInformationType.LastName)}";
+            if (!string.IsNullOrWhiteSpace(parserResult.Message))
+            {
+                string msg = parserResult.Message.Length > 5
+                    ? parserResult.Message.Substring(0, 5) + "..."
+                    : parserResult.Message;
+                title = $"Send '{msg}' to {title}";
+            }
+
+            return title;
+        }
+
+        private void OnContactSelection(Contact c, QueryParserResult parserResult)
+        {
+            if (!string.IsNullOrWhiteSpace(parserResult.Message))
+            {
+                _lync.SendMessage(c, parserResult.Message);
+            }
+            else
+            {
+                _lync.StartConversation(c);
+            }
         }
 
         public void Init(PluginInitContext context)
