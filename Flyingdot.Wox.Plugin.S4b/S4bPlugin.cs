@@ -17,12 +17,12 @@ namespace Flyingdot.Wox.Plugin.S4b
         {
             var list = new List<Result>();
 
-            Debug.WriteLine(query.FirstSearch ?? "");
-            Debug.WriteLine(query.SecondToEndSearch ?? "");
 
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
-                IEnumerable<Contact> searchResults = _contactSearch.Search(query.FirstSearch, 100);
+                QueryParserResult parserResult = new QueryParser().Parse(query.Search);
+
+                IEnumerable<Contact> searchResults = _contactSearch.Search(parserResult.Search, 100);
                 if (searchResults != null)
                 {
                     list.AddRange(searchResults.Select(c => new Result
@@ -31,9 +31,9 @@ namespace Flyingdot.Wox.Plugin.S4b
                         SubTitle = "something",
                         Action = contact =>
                         {
-                            if (!string.IsNullOrWhiteSpace(query.SecondToEndSearch))
+                            if (!string.IsNullOrWhiteSpace(parserResult.Message))
                             {
-                                _lync.SendMessage(c, query.SecondToEndSearch);
+                                _lync.SendMessage(c, parserResult.Message);
                             }
                             else
                             {
