@@ -1,4 +1,5 @@
 # Wox.S4b
+[![Build status](https://ci.appveyor.com/api/projects/status/hbgg8fpr178jsf9c?svg=true)](https://ci.appveyor.com/project/Flyingdot/wox-s4b)
 
 ## Usage
     s4b Bill Gates
