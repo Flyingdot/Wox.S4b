@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Flyingdot.Wox.Plugin.S4b.Extensions;
 using Flyingdot.Wox.Plugin.S4b.Services;
@@ -10,8 +9,8 @@ namespace Flyingdot.Wox.Plugin.S4b
 {
     public class S4bPlugin : IPlugin
     {
-        private readonly IContactSearch _contactSearch = new ContactSearch();
-        private readonly ILync _lync = new Lync();
+        private readonly IContactSearch _contactSearch = new ContactSearch(new LyncClientFactory());
+        private readonly ILync _lync = new Lync(new LyncClientFactory());
 
         public List<Result> Query(Query query)
         {

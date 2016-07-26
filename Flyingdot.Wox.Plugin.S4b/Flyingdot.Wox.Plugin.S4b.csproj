@@ -52,6 +52,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ContactExtension.cs" />
+    <Compile Include="ILyncClientFactory.cs" />
+    <Compile Include="LyncClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryParser.cs" />
     <Compile Include="QueryParserResult.cs" />

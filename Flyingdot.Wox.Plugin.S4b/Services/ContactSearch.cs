@@ -7,12 +7,12 @@ namespace Flyingdot.Wox.Plugin.S4b.Services
 {
     public class ContactSearch : IContactSearch
     {
-        private readonly LyncClient _lyncClient;
         private static IList<SearchProviders> _activeSearchProviders;
+        private readonly ILyncClientFactory _lyncClientFactory;
 
-        public ContactSearch()
+        public ContactSearch(ILyncClientFactory lyncClientFactory)
         {
-            _lyncClient = LyncClient.GetClient();
+            _lyncClientFactory = lyncClientFactory;
         }
 
         public IEnumerable<Contact> Search(string searchName, uint numResults)
@@ -26,13 +26,15 @@ namespace Flyingdot.Wox.Plugin.S4b.Services
 
             try
             {
-                if (_lyncClient.State == ClientState.SignedIn)
+                LyncClient lyncClient = _lyncClientFactory.GetInstance();
+
+                if (lyncClient.State == ClientState.SignedIn)
                 {
-                    SearchFields searchFields = _lyncClient.ContactManager.GetSearchFields();
-                    object[] asyncState = { _lyncClient.ContactManager, searchName };
+                    SearchFields searchFields = lyncClient.ContactManager.GetSearchFields();
+                    object[] asyncState = { lyncClient.ContactManager, searchName };
                     foreach (var myActiveSearchProvider in _activeSearchProviders)
                     {
-                        IAsyncResult result = _lyncClient.ContactManager.BeginSearch(searchName
+                        IAsyncResult result = lyncClient.ContactManager.BeginSearch(searchName
                             , myActiveSearchProvider
                             , searchFields
                             , SearchOptions.Default
@@ -40,7 +42,7 @@ namespace Flyingdot.Wox.Plugin.S4b.Services
                             , ar => { }
                             , asyncState);
 
-                        SearchResults searchResults = _lyncClient.ContactManager.EndSearch(result);
+                        SearchResults searchResults = lyncClient.ContactManager.EndSearch(result);
                         results.AddRange(searchResults.Contacts);
                     }
                 }
@@ -59,32 +61,34 @@ namespace Flyingdot.Wox.Plugin.S4b.Services
 
         private void LoadSearchProviders()
         {
-            if (_lyncClient.SignInConfiguration.SignedInFromIntranet)
+            LyncClient lyncClient = _lyncClientFactory.GetInstance();
+
+            if (lyncClient.SignInConfiguration.SignedInFromIntranet)
             {
-                if (_lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.ExchangeService) == SearchProviderStatusType.SyncSucceeded)
+                if (lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.ExchangeService) == SearchProviderStatusType.SyncSucceeded)
                 {
                     _activeSearchProviders.Add(SearchProviders.ExchangeService);
                 }
-                if (_lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.Expert) == SearchProviderStatusType.SyncSucceeded)
+                if (lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.Expert) == SearchProviderStatusType.SyncSucceeded)
                 {
                     _activeSearchProviders.Add(SearchProviders.Expert);
                 }
-                if (_lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.GlobalAddressList) == SearchProviderStatusType.SyncSucceeded)
+                if (lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.GlobalAddressList) == SearchProviderStatusType.SyncSucceeded)
                 {
                     _activeSearchProviders.Add(SearchProviders.GlobalAddressList);
                 }
             }
             else
             {
-                if (_lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.ExchangeService) == SearchProviderStatusType.SyncSucceededForExternalOnly)
+                if (lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.ExchangeService) == SearchProviderStatusType.SyncSucceededForExternalOnly)
                 {
                     _activeSearchProviders.Add(SearchProviders.ExchangeService);
                 }
-                if (_lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.Expert) == SearchProviderStatusType.SyncSucceededForExternalOnly)
+                if (lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.Expert) == SearchProviderStatusType.SyncSucceededForExternalOnly)
                 {
                     _activeSearchProviders.Add(SearchProviders.Expert);
                 }
-                if (_lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.GlobalAddressList) == SearchProviderStatusType.SyncSucceededForExternalOnly)
+                if (lyncClient.ContactManager.GetSearchProviderStatus(SearchProviders.GlobalAddressList) == SearchProviderStatusType.SyncSucceededForExternalOnly)
                 {
                     _activeSearchProviders.Add(SearchProviders.GlobalAddressList);
                 }

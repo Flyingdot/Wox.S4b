@@ -9,7 +9,12 @@ namespace Flyingdot.Wox.Plugin.S4b.Services
 {
     public class Lync : ILync
     {
-        private readonly LyncClient _lyncClient = LyncClient.GetClient();
+        private readonly ILyncClientFactory _lyncClientFactory;
+
+        public Lync(ILyncClientFactory lyncClientFactory)
+        {
+            _lyncClientFactory = lyncClientFactory;
+        }
 
         public void StartConversation(Contact contact)
         {
@@ -34,11 +39,12 @@ namespace Flyingdot.Wox.Plugin.S4b.Services
 
         public void SendMessage(Contact contact, string message)
         {
-            _lyncClient.ConversationManager.ConversationAdded += (sender, args) =>
+            LyncClient lyncClient = _lyncClientFactory.GetInstance();
+            lyncClient.ConversationManager.ConversationAdded += (sender, args) =>
             {
                 args.Conversation.AddParticipant(contact);
             };
-            var conversation = _lyncClient.ConversationManager.AddConversation();
+            var conversation = lyncClient.ConversationManager.AddConversation();
             SendMessage(message, conversation);
         }
 
