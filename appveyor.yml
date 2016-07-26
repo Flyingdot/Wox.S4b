@@ -1,2 +1,7 @@
 before_build:
   - nuget restore
+configuration:
+  - Release
+artifacts:
+  - path: Flyingdot.Wox.Plugin.S4b\bin\$(configuration)
+    name: Release
