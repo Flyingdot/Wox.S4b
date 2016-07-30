@@ -5,3 +5,12 @@ configuration:
 artifacts:
   - path: Flyingdot.Wox.Plugin.S4b\bin\$(configuration)
     name: Release
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: DuoEU3D+BxNPu+y2HS/uL7gDLt65pIrqxBj9yidcH1WhSQegEcQtHXBdR0ZS0OWT
+  artifact: Release
+  draft: false
+  prerelease: false
+  on:
+    branch: master
