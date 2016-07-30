@@ -26,8 +26,8 @@ namespace Flyingdot.Wox.Plugin.S4b
                 {
                     list.AddRange(searchResults.Select(c => new Result
                     {
-                        Title = SetTitle(c, parserResult),
-                        SubTitle = "something",
+                        Title = $"{c.SafeGetContactInformation(ContactInformationType.FirstName)} {c.SafeGetContactInformation(ContactInformationType.LastName)}",
+                        SubTitle = SetDescription(c, parserResult),
                         IcoPath = "Images/s4blogo.png",
                         Action = _ =>
                         {
@@ -41,18 +41,18 @@ namespace Flyingdot.Wox.Plugin.S4b
             return list;
         }
 
-        private static string SetTitle(Contact contact, QueryParserResult parserResult)
+        private static string SetDescription(Contact contact, QueryParserResult parserResult)
         {
-            string title = $"{contact.SafeGetContactInformation(ContactInformationType.FirstName)} {contact.SafeGetContactInformation(ContactInformationType.LastName)}";
+            string contactName = $"{contact.SafeGetContactInformation(ContactInformationType.FirstName)} {contact.SafeGetContactInformation(ContactInformationType.LastName)}";
             if (!string.IsNullOrWhiteSpace(parserResult.Message))
             {
                 string msg = parserResult.Message.Length > 5
                     ? parserResult.Message.Substring(0, 5) + "..."
                     : parserResult.Message;
-                title = $"Send '{msg}' to {title}";
+                return $"Send '{msg}' to {contactName}";
             }
 
-            return title;
+            return $"Start conversation with {contactName}";
         }
 
         private void OnContactSelection(Contact c, QueryParserResult parserResult)
