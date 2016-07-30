@@ -28,6 +28,7 @@ namespace Flyingdot.Wox.Plugin.S4b
                     {
                         Title = SetTitle(c, parserResult),
                         SubTitle = "something",
+                        IcoPath = "Images/s4blogo.png",
                         Action = _ =>
                         {
                             OnContactSelection(c, parserResult);

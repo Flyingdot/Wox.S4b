@@ -2,11 +2,11 @@
   "ID": "EE27ECBB6D67497E99A8043C1A53FBC2",
   "ActionKeyword": "s4b",
   "Name": "Skype for Business",
-  "Description": "Launcher for Skype for Business Calls or IM's",
-  "Author": "@danimeier",
+  "Description": "Launch Skype for Business Action from Wox",
+  "Author": "Daniel Meier, @danimeier",
   "Version": "1.0.0",
   "Language": "csharp",
   "Website": "https://github.com/Flyingdot/Wox.S4b",
-  "IcoPath": "Images\\pic.png",
+  "IcoPath":"Images\\s4blogo.png",
   "ExecuteFileName": "Flyingdot.Wox.Plugin.S4b.dll"
 }
